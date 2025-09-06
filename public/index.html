@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Banco Virtual — COLOSO</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+<style>
+  body{font-family:Inter,system-ui,Arial;padding:14px;background:#f0f2f5;color:#0f172a}
+  .card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,.05);margin:8px 0}
+  input,select,button{padding:10px;border-radius:8px;border:1px solid #ccc}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .small{font-size:12px;color:#6b7280}
+</style>
+
+<!-- Firebase (compat builds para facilidad) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h1>Banco Virtual — COLOSO</h1>
+
+  <div id="login-screen" class="card">
+    <h3>Iniciar sesión</h3>
+    <input id="codeInput" type="number" placeholder="Código (cliente o admin)"/>
+    <button id="loginBtn">Ingresar</button>
+    <p class="small">Si no tienes códigos, usa el seed (9999 admin, 1001-1003 clientes).</p>
+  </div>
+
+  <div id="main-screen" class="card" style="display:none">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <div>
+        <h2 id="welcomeUser">—</h2>
+        <div class="small">Tipo: <span id="currentUserType">—</span></div>
+      </div>
+      <div class="row">
+        <div class="small" id="bankFunds">Fondos: —</div>
+        <button id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <hr/>
+
+    <h3>Agregar cliente</h3>
+    <div class="row">
+      <input id="clientName" placeholder="Nombre"/>
+      <input id="clientInitBal" type="number" placeholder="Saldo inicial" value="0" style="width:140px"/>
+      <button id="addClientBtn">Añadir</button>
+    </div>
+
+    <hr/>
+
+    <h3>Clientes</h3>
+    <div id="clientsList" class="card small">Cargando clientes...</div>
+
+    <hr/>
+
+    <h3>Transferencias</h3>
+    <div class="row">
+      <select id="fromSelect"><option value="">De</option></select>
+      <select id="toSelect"><option value="">Para</option></select>
+      <input id="transferAmount" type="number" placeholder="Monto" style="width:120px"/>
+      <button id="transferBtn">Transferir</button>
+    </div>
+
+    <hr/>
+
+    <h3>Pagos masivos</h3>
+    <div class="row">
+      <input id="massAmt" type="number" placeholder="Monto por cliente" style="width:160px"/>
+      <button id="massPay">Pagar (Banco → clientes)</button>
+      <button id="massCharge">Cobrar (Clientes → Banco)</button>
+    </div>
+
+    <hr/>
+
+    <h3>Historial</h3>
+    <div id="historyWrap" class="small">Cargando historial...</div>
+
+    <hr/>
+
+    <h3>Fondos del banco (admin)</h3>
+    <div class="row">
+      <input id="bankFundAmount" type="number" placeholder="Monto" style="width:120px"/>
+      <button id="addFundsBtn">Agregar</button>
+      <button id="withdrawFundsBtn">Retirar</button>
+    </div>
+
+  </div>
+
+<script src="app.js"></script>
+<!-- opcional: <script src="seed.js"></script> -->
+</body>
+</html>
